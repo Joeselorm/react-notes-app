@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import "bootswatch/dist/lux/bootstrap.min.css"
+import React, { useState } from "react";
 import './App.css';
+import { Switch, Route } from 'react-router-dom'
+import Header from './components/Header';
+import Create from "./screens/Create";
+import Home from "./screens/Home";
+import Notes from "./screens/Notes";
 
 function App() {
+  const [notes, setNotes] = useState([])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/notes">
+          <Notes notes={notes} setNotes={setNotes} />
+        </Route>
+        <Route path="/create">
+          <Create notes={notes} setNotes={setNotes} />
+        </Route>
+      </Switch>
     </div>
   );
 }
